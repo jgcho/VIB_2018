@@ -138,7 +138,6 @@ CONTAINS
       inquire (file=trim(cin), exist = lfn)
       if (.not.lfn) goto 320
       
-      write(*,*) icol,trim(cin)
       open(31,file=trim(cin))
       read(31,*,end=319)
       read(31,*,end=319)
@@ -155,6 +154,7 @@ CONTAINS
       
       close(31)
       !write(*,*) n,trim(cin)
+      write(*,*) icol,trim(cin),ndata
       
   320 continue
       if (.not.lfn) then

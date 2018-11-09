@@ -31,6 +31,7 @@
       do n=1,nm
 !      	if (inf(n).eq.1) then
       		nn=nn+1
+      		write(*,*) "readf:", nn
       	  call readf
 !        endif
       enddo
@@ -190,6 +191,8 @@ CONTAINS
       read(31,*)
       probx=-999.
       tempx=-999.
+      lmx=lm
+      ltx=lm
       do l=1,lm
       	read(31,*) tm,proba(l),idexa(l),tempa(l),salta(l),atema(l)
       	if (proba(l).gt.probx) then
