@@ -99,7 +99,7 @@ echo "======================" >>& $DLOG/Log_$Tday.txt
 echo `date '+%Y-%m-%d %H:%M:%S'` >>& $DLOG/Log_$Tday.txt
 echo "Start PLANE Modeling" >>& $DLOG/Log_$Tday.txt
 echo "----------------------" >>& $DLOG/Log_$Tday.txt
-csh $DSHL/03_ROMS.csh $PHOME >>& $DLOG/Log_$Tday.txt
+(csh $DSHL/03_ROMS.csh $PHOME > /dev/null) >>& $DLOG/Log_$Tday.txt
 echo "----------------------" >>& $DLOG/Log_$Tday.txt
 echo "END PLANE Modeling" >>& $DLOG/Log_$Tday.txt
 echo `date '+%Y-%m-%d %H:%M:%S'` >>& $DLOG/Log_$Tday.txt

@@ -33,7 +33,7 @@ echo "======================" >>& $DLOG/Log_WEST_$Tday.txt
 echo `date '+%Y-%m-%d %H:%M:%S'` >>& $DLOG/Log_WEST_$Tday.txt
 echo "Start PLANE Modeling" >>& $DLOG/Log_WEST_$Tday.txt
 echo "----------------------" >>& $DLOG/Log_WEST_$Tday.txt
-csh $DSHL/WEST.csh $PHOME >>& $DLOG/Log_WEST_$Tday.txt
+(csh $DSHL/WEST.csh $PHOME > /dev/null) >>& $DLOG/Log_WEST_$Tday.txt
 echo "----------------------" >>& $DLOG/Log_WEST_$Tday.txt
 echo "END PLANE Modeling" >>& $DLOG/Log_WEST_$Tday.txt
 echo `date '+%Y-%m-%d %H:%M:%S'` >>& $DLOG/Log_WEST_$Tday.txt
