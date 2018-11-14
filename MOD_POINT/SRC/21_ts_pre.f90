@@ -1,4 +1,5 @@
 !234567
+      parameter(idb=0) ! idb=0 : no debug, idb=1 : debug
       integer nt,n ! nt: no. of locations
       character*8 ctoday,cyestday
       real days,daye
@@ -302,11 +303,13 @@ CONTAINS
 
       cdum=trim(cHOME)//'/'//trim(cINP)//'/QC.INP'
       open(101,file=trim(cdum))
-      open(200,file=trim(qclog))
-      open(201,file=trim(qcmis))
-      open(202,file=trim(qcbad))
-      write(201,8996)
-      write(202,8997)
+      if (idb.eq.1) then
+        open(200,file=trim(qclog))
+        open(201,file=trim(qcmis))
+        open(202,file=trim(qcbad))
+        write(201,8996)
+        write(202,8997)
+      endif
       
       cval(1)='Water Temp.'
       cval(2)='Salinity   '
@@ -340,8 +343,10 @@ CONTAINS
           read(101,*)
       enddo         
       close(101)
-      write(200,8998) iy,im,id,im,id+1
-      write(200,8999) 
+      if (idb.eq.1) then
+      	write(200,8998) iy,im,id,im,id+1
+        write(200,8999) 
+      endif
 8996  format('bad_item                station      date   time      val     name')
 8997  format('bad_item                station      date   time bad_id  val    valb  crt_max  crt_min   grad  crt_grad name')  
 8998  format('Realtime Monitoring data QC log file in : ',i4,1x,i2,'/',i2,1x,'09:00',' ~ ',i2,'/',i2,1x,'08:59')
@@ -388,12 +393,16 @@ CONTAINS
 ! print missing or bad data
                   if (isbad.gt.0)then
                     if (val(moa,ida,iha,ima).eq.-999.)then     ! missing data
-                      write(201,8998) cval(istyp),cloc(n),n,moa,ida,iha,ima,val(moa,ida,iha,ima),chname(n)
+                      if (idb.eq.1) then
+                      	write(201,8998) cval(istyp),cloc(n),n,moa,ida,iha,ima,val(moa,ida,iha,ima),chname(n)
+                      endif
                     else                                       ! bad data
-                      write(202,8999) trim(cval(istyp)),trim(cloc(n)) &
-                      ,n,moa,ida,iha,ima,isbad,val(moa,ida,iha,ima) &
-                      ,valb,crtmx,crtmn,grad,gradcrt2,trim(chname(n))
-                      ndatabad=ndatabad+1
+                      if (idb.eq.1) then
+                        write(202,8999) trim(cval(istyp)),trim(cloc(n)) &
+                        ,n,moa,ida,iha,ima,isbad,val(moa,ida,iha,ima) &
+                        ,valb,crtmx,crtmn,grad,gradcrt2,trim(chname(n))
+                        ndatabad=ndatabad+1
+                      endif
                     endif 
                     if (isav(n).eq.1.and.val(moa,ida,iha,ima).ne.-999.0) then
                     	val(moa,ida,iha,ima)=(valavg(n,istyp,moa)+valmx(n,istyp,moa))/2.
@@ -433,8 +442,9 @@ CONTAINS
 
       if(isav(n).eq.0) cisav='exclude'
       if(isav(n).eq.1) cisav='replace'      
-      write(200,8996) n,cloc(n),24*60/intv(n),ntempmiss,nsaltmiss,natemmiss,ntempbad,nsaltbad,natembad,cisav,chname(n)
-
+      if (idb.eq.1) then
+        write(200,8996) n,cloc(n),24*60/intv(n),ntempmiss,nsaltmiss,natemmiss,ntempbad,nsaltbad,natembad,cisav,chname(n)
+      endif
 8996  format(i3,1x,a9,3x,7(i4,3x),a7,2x,a15)
       endsubroutine
 !##############################################################################
