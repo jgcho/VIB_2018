@@ -1,6 +1,6 @@
 #!/bin/csh
 
-source /home/vibrio/MOD_POINT/SHL/01_READDIR.csh
+source /data/vibrio/modeling/MOD_POINT/SHL/01_READDIR.csh
 
 csh $DSHL/02_DATE.csh $PHOME
 echo 20181109>ymd.dat
@@ -25,7 +25,8 @@ echo "======================" >>& $DLOG/Log_$Tday.txt
 echo `date '+%Y-%m-%d %H:%M:%S'` >>& $DLOG/Log_$Tday.txt
 echo "Start 21 Preprocessing" >>& $DLOG/Log_$Tday.txt
 echo "----------------------" >>& $DLOG/Log_$Tday.txt
-(csh $DSHL/03_21_ts_pre.csh $PHOME > /dev/null) >>& $DLOG/Log_$Tday.txt
+#(csh $DSHL/03_21_ts_pre.csh $PHOME > /dev/null) >>& $DLOG/Log_$Tday.txt
+(csh $DSHL/03_21_ts_pre.csh $PHOME > $DLOG/Log_$Tday.txt) >>& $DLOG/Log_$Tday.txt
 echo "----------------------" >>& $DLOG/Log_$Tday.txt
 echo "END 21 Preprocessing" >>& $DLOG/Log_$Tday.txt
 echo `date '+%Y-%m-%d %H:%M:%S'` >>& $DLOG/Log_$Tday.txt
@@ -47,7 +48,8 @@ echo "======================" >>& $DLOG/Log_$Tday.txt
 echo `date '+%Y-%m-%d %H:%M:%S'` >>& $DLOG/Log_$Tday.txt
 echo "Start 22 Vib. Modeling" >>& $DLOG/Log_$Tday.txt
 echo "----------------------" >>& $DLOG/Log_$Tday.txt
-(csh $DSHL/04_22_vib.csh $PHOME > /dev/dull) >>& $DLOG/Log_$Tday.txt
+#(csh $DSHL/04_22_vib.csh $PHOME > /dev/dull) >>& $DLOG/Log_$Tday.txt
+(csh $DSHL/04_22_vib.csh $PHOME > $DLOG/Log_$Tday.txt) >>& $DLOG/Log_$Tday.txt
 echo "----------------------" >>& $DLOG/Log_$Tday.txt
 echo "END 22 Vib. Modeling" >>& $DLOG/Log_$Tday.txt
 echo `date '+%Y-%m-%d %H:%M:%S'` >>& $DLOG/Log_$Tday.txt
@@ -69,7 +71,8 @@ echo "======================" >>& $DLOG/Log_$Tday.txt
 echo `date '+%Y-%m-%d %H:%M:%S'` >>& $DLOG/Log_$Tday.txt
 echo "Start 23 Vib. Max write" >>& $DLOG/Log_$Tday.txt
 echo "----------------------" >>& $DLOG/Log_$Tday.txt
-(csh $DSHL/05_23_vib_max.csh $PHOME > /dev/null) >>& $DLOG/Log_$Tday.txt
+#(csh $DSHL/05_23_vib_max.csh $PHOME > /dev/null) >>& $DLOG/Log_$Tday.txt
+(csh $DSHL/05_23_vib_max.csh $PHOME > $DLOG/Log_$Tday.txt) >>& $DLOG/Log_$Tday.txt
 echo "----------------------" >>& $DLOG/Log_$Tday.txt
 echo "END 23 Vib. Max write" >>& $DLOG/Log_$Tday.txt
 echo `date '+%Y-%m-%d %H:%M:%S'` >>& $DLOG/Log_$Tday.txt

@@ -1,7 +1,6 @@
 #!/bin/csh
 
-source /home/vibrio/MOD_POINT/SHL/01_READDIR.csh
-
+source /data/vibrio/modeling/MOD_POINT/SHL/01_READDIR.csh
 csh $DSHL/02_DATE.csh $PHOME
 
 set Tday=`cat $PHOME/ymd.dat`

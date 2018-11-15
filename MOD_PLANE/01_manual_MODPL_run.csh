@@ -1,10 +1,12 @@
 #!/bin/csh
 
-source /home/vibrio/MOD_PLANE/SHL/01_READDIR.csh
+source /data/vibrio/modeling/MOD_PLANE/SHL/01_READDIR.csh
 
-#csh $DSHL/02_DATE.csh $PHOME
+csh $DSHL/02_DATE.csh $PHOME
 
-set Tday=`cat $PHOME/ymd.dat`
+#set Tday=`cat $PHOME/ymd.dat`
+set Tday=20181008
+echo $Tday> $PHOME/ymd.dat
 echo $Tday > $DLOG/Log_$Tday.txt
 
 echo "======================" >>& $DLOG/Log_$Tday.txt

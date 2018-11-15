@@ -3,8 +3,8 @@ LOG
 SRC
 EXE
 SHL
-/home/vibrio/data/csv/point
+/data/vibrio/csv/point
 PRE1
 PRE2
 RST
-/home/vibrio/data/xml/point
+/data/vibrio/xml/point

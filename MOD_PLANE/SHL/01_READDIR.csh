@@ -1,6 +1,6 @@
 #!/bin/csh
 
-set PHOME=/home/vibrio/MOD_PLANE
+set PHOME=/data/vibrio/modeling/MOD_PLANE
 set lm=`cat $PHOME/dir.inp`
 
 set DINP=$PHOME/$lm[1]

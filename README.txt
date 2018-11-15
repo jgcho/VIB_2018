@@ -20,3 +20,17 @@ xml 파일명은
 서해 = WEST_20181008 ~
 제주 = JEJU_20181008 ~
 ------------------------
+
+로그파일 줄인 모델셋 전달 181114
+
+--------------------------
+점, 면 디렉토리 변경
+점기반 : 
+모델링 홈 : /data/vibrio/modeling/MOD_POINT
+csv 경로 : /data/vibrio/csv/point
+xml 경로 : /data/vibrio/xml/point
+
+면기반 : 
+모델링 홈 : /data/vibrio/modeling/MOD_PLANE
+csv 경로 : /data/vibrio/csv/range
+xml 경로 : /data/vibrio/xml/range

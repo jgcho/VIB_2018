@@ -1,6 +1,6 @@
 #!/bin/csh
 
-source /home/vibrio/MOD_PLANE/SHL/01_READDIR.csh
+source /data/vibrio/modeling/MOD_PLANE/SHL/01_READDIR.csh
 
 csh $DSHL/02_DATE.csh $PHOME
 
