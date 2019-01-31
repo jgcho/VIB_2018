@@ -5,7 +5,7 @@
       character*7,allocatable,dimension(:)::cloc
       integer,allocatable,dimension(:)::inf    ! 1:On, 2:Off
       integer,allocatable,dimension(:)::iflag  ! 1:KHOA, 2:NFRDI      
-      integer,allocatable,dimension(:)::ioc    ! 1:west, 2:south, 3:north
+      integer,allocatable,dimension(:)::ioc    ! 1:west, 2:south, 3:east
       integer,allocatable,dimension(:)::item,isal,iatm
       real,allocatable,dimension(:)::utmx,utmy
       real*8,allocatable,dimension(:)::rlon,rlat
@@ -13,6 +13,7 @@
       integer,allocatable,dimension(:)::intv,iarea,iregn,irep1,irep2
       integer,allocatable,dimension(:)::idxw,ividx
       real*8,allocatable,dimension(:)::probw,tempw,saltw,atemw
+      real*8,allocatable,dimension(:)::ratio
 
       character*120 cHOME,cINP,cLOG,cSRC,cEXE,cSHL
       character*120 cpre0_1,cpre1,cpre2,crst,cXML
@@ -23,6 +24,7 @@
       real*8 beta12(3),beta22(3),beta32(3)
       real*8 beta13(3),beta23(3),beta33(3)
       real rlv(5),val(5)
+      real*8 b0_2018,b1_2018,b2_2018
 
 
       call init
@@ -353,6 +355,7 @@ CONTAINS
       allocate(iregn(nm))
       allocate(irep1(nm))
       allocate(irep2(nm))
+      allocate(ratio(nm))
       
       allocate(idxw(nm),ividx(nm))
       allocate(probw(nm),tempw(nm),saltw(nm),atemw(nm))
@@ -363,7 +366,7 @@ CONTAINS
       	read(21,*) ikey(n),cloc(n),inf(n),iflag(n),ioc(n), &
       	           item(n),isal(n),iatm(n),utmx(n),utmy(n), &
       	           rlon(n),rlat(n),chname(n),intv(n),idum,idum, &
-      	           iarea(n),iregn(n),irep1(n),irep2(n)
+      	           iarea(n),iregn(n),irep1(n),irep2(n),ratio(n)
         !write(*,*) ikey(n),cloc(n),chname(n)
       enddo
       close(21)
@@ -405,6 +408,9 @@ CONTAINS
       do i=1,10
         read(23,*) 
       enddo
+      read(23,*)
+      read(23,*)
+      read(23,*) idum,b0_2018,b1_2018,b2_2018
       read(23,*)
       rlv(1)=0.
       val(1)=0.

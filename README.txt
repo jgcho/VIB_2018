@@ -34,3 +34,7 @@ xml 경로 : /data/vibrio/xml/point
 모델링 홈 : /data/vibrio/modeling/MOD_PLANE
 csv 경로 : /data/vibrio/csv/range
 xml 경로 : /data/vibrio/xml/range
+
+--------------------------------------------
+
+점기반 수정 2019-01-31

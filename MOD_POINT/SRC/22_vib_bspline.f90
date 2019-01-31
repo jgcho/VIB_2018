@@ -13,6 +13,7 @@
       real*8,allocatable,dimension(:)::rlon,rlat
       character*120,allocatable,dimension(:)::chname
       integer,allocatable,dimension(:)::imod
+      real*8,allocatable,dimension(:)::ratio
       
       character*120 cHOME,cINP,cLOG,cSRC,cEXE,cSHL
       character*120 cpre0_1,cpre1,cpre2,crst
@@ -24,6 +25,7 @@
       real*8 beta13(3),beta23(3),beta33(3)
       real*8 rlv1,rlv2,rlv3
       real*8 b0(10),b1(10)
+      real*8 b0_2018,b1_2018,b2_2018
 
       call init
 
@@ -32,7 +34,8 @@
 !      	if (inf(n).eq.1) then
           call setfn
 !          call bspline2
-          call logist
+          !call logist
+          call logist2018
 !        endif
       enddo
 
@@ -41,6 +44,56 @@ CONTAINS
 !#############################################################
       subroutine samp
       endsubroutine
+
+!#############################################################
+      subroutine logist2018
+
+      if (.not.lfn) goto 330
+
+  311 read(31,*,end=319) tm,t,s,ta,idm,iy,im,id,ih
+      !write(*,*) tm,t,s,ta,idm,iy,im,id,ih
+      
+      nt=ioc(n)
+      b0c=b0(imod(n))
+      b1c=b1(imod(n))
+      !calc=b0c + b1c*t   ! 2018 edit
+      calc=b0_2018 + b1_2018*t + b2_2018*ratio(n)
+      p=exp(calc)/(1+exp(calc))
+      !if (b0c.eq.0. .and. b1c.eq.0.) p=0. ! 2018 edit
+!            write(*,*) imod(n),cloc(n),b0c,b1c,p,t
+      
+      if (p.ge.0. .and. p.lt.rlv1) then
+     	  indexa=1
+      elseif (p.ge.rlv1 .and. p.lt.rlv2) then
+       	indexa=2
+      elseif (p.ge.rlv2 .and. p.lt.rlv3) then
+       	indexa=3
+      elseif (p.ge.rlv3 .and. p.lt.1.) then
+       	indexa=4
+      else
+        indexa=0
+      endif
+      
+      if (t.lt.-0.3) then
+        indexa=0
+        p=0.
+      endif
+        
+      write(51,5102) tm,p,indexa,t,s,ta,iy,im,id,ih
+      goto 311
+  319 continue
+      
+      close(31)
+  
+  330 continue
+      close(51)
+      
+ 5102 format(f10.5,',',f7.4,',',i1,',',3(f6.1,','),i8,',',3(i4,','))
+
+      endsubroutine ! logist2018
+
+!#############################################################
+
 
 !#############################################################
       subroutine logist
@@ -242,13 +295,15 @@ CONTAINS
       allocate(rlat(nn))
       allocate(chname(nn))
       allocate(imod(nn))
+      allocate(ratio(nn))
       
       rewind(21)
       read(21,*)
       do n=1,nn
       	read(21,*) ikey(n),cloc(n),inf(n),iflag(n),ioc(n), &
       	           item(n),isal(n),iatm(n),utmx(n),utmy(n), &
-      	           rlon(n),rlat(n),chname(n),idum,idum,imod(n)
+      	           rlon(n),rlat(n),chname(n),idum,idum,imod(n), &
+      	           idum,idum,idum,idum,ratio(n)
         !write(*,*) ikey(n),cloc(n),chname(n)
       enddo
       close(21)
@@ -287,6 +342,9 @@ CONTAINS
       do i=1,10
         read(23,*) idum,b0(i),b1(i)
       enddo
+      read(23,*)
+      read(23,*)
+      read(23,*) idum,b0_2018,b1_2018,b2_2018
       read(23,*)
       read(23,*)rlv1
       read(23,*)rlv2

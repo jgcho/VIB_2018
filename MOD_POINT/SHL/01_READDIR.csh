@@ -1,7 +1,7 @@
 #!/bin/csh
 
 set PHOME=/data/vibrio/modeling/MOD_POINT
-set lm=`cat ${PHOME}/dir.inp`
+set lm=`cat $PHOME/dir.inp`
 
 set DINP=$PHOME/$lm[1]
 set DLOG=$PHOME/$lm[2]

@@ -8,7 +8,7 @@
       character*7,allocatable,dimension(:)::cloc
       integer,allocatable,dimension(:)::inf    ! 1:On, 2:Off
       integer,allocatable,dimension(:)::iflag  ! 1:KHOA, 2:NFRDI      
-      integer,allocatable,dimension(:)::ioc    ! 1:west, 2:south, 3:north
+      integer,allocatable,dimension(:)::ioc    ! 1:west, 2:south, 3:east
       integer,allocatable,dimension(:)::item,isal,iatm
       real,allocatable,dimension(:)::utmx,utmy
       real*8,allocatable,dimension(:)::rlon,rlat
