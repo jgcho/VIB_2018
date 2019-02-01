@@ -55,7 +55,7 @@ CONTAINS
 
       open(51,file=trim(cou))
       write(51,'(4a)') "CurrentDay=",ctoday,",PredictDay=",cday(k)
-      write(51,'(a)') "i,j,lon,lat,utmx,utmy,idx,score,isol,temp,flag,"
+      write(51,'(a)') "i,j,lon,lat,utmx,utmy,idx,score,isol,temp,flag,icnt,"  ! v2018
       
       open(52,file=trim(coux))
       write(52,'(a)') "<?xml version='1.0' encoding='utf-8'?>"
@@ -133,10 +133,12 @@ CONTAINS
       	atemp=0.
       	icnt=0
       	do m=1,iav
-      		write(*,*) m,l,ip2(m,l),jp2(m,l),k
-      		aprob=aprob + probmx(ip2(m,l),jp2(m,l))
-      		atemp=atemp + tempmx(ip2(m,l),jp2(m,l))
-      		if (tempmx(ip2(m,l),jp2(m,l)).gt.0.) icnt=icnt+1
+      		! write(*,*) m,l,ip2(m,l),jp2(m,l),k
+      		if (tempmx(ip2(m,l),jp2(m,l)).gt.0. .and. tempmx(ip2(m,l),jp2(m,l)).lt.40.) then   ! v2018
+      		  icnt=icnt+1
+      		  aprob=aprob + probmx(ip2(m,l),jp2(m,l))
+      		  atemp=atemp + tempmx(ip2(m,l),jp2(m,l))
+      		endif
       	enddo
       	if (icnt.eq.0) then
       	  aprob=0.
@@ -153,7 +155,7 @@ CONTAINS
       	call calscore(aprob)
       	
       	write(51,5101) i2(l),j2(l),rlon2(l),rlat2(l),xx2(l),yy2(l) &
-      	,itmpidx,itmpscore,aprob,atemp,iflag(ip2(1,l),jp2(1,l))
+      	,itmpidx,itmpscore,aprob,atemp,iflag(ip2(1,l),jp2(1,l)),icnt  ! v2018
       	if (itmpidx.gt.1) then
       	  write(cnum,'(i5)') l
           write(ctmp,'(a,a,a)') "  <data id='",trim(adjustl(cnum)),"'>"
@@ -180,7 +182,7 @@ CONTAINS
       close(52)
 
  5101 format(i3.3,",",i3.3,",",f8.4,",",f7.4,",",f8.1,",",f9.1,",", &
-             i1,",",i2.2,",",f6.3,",",f4.1,",",i2.2,",")
+             i1,",",i2.2,",",f6.3,",",f4.1,",",i4,",",i1,",")  ! v2018
 
       endsubroutine ! rwproc
 
