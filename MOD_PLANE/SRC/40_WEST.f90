@@ -6,6 +6,7 @@
       integer irmax,jrmax,l
       character*8 ctoday,cday(km+1)
       real days,daye
+      real*8 b0_2018,b1_2018,b2_2018 ! v2018
 
       real,allocatable,dimension(:,:)::rlon,rlat,xx,yy
       integer,allocatable,dimension(:,:)::iflag
@@ -346,6 +347,11 @@ CONTAINS
       do i=0,im
         read(12,*) imod(i),b0(i),b1(i)
       enddo
+      
+      read(12,*)
+      read(12,*)
+      read(12,*) idum,b0_2018,b1_2018,b2_2018 ! v2018
+      
       read(12,*)
       rlv(1)=0.
       val(1)=0.

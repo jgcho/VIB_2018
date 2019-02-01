@@ -6,10 +6,12 @@
       integer irmax,jrmax,l,lm
       character*8 ctoday,cday(km+1)
       real days,daye
+      real*8 b0_2018,b1_2018,b2_2018  ! v2018
 
       !real,allocatable,dimension(:)::rlon,rlat,xx,yy
       integer,allocatable,dimension(:,:)::iflag
       real*8,allocatable,dimension(:,:)::probmx,tempmx
+      real*8,allocatable,dimension(:)::ratio ! v2018
       !integer,allocatable,dimension(:)::idxmx,iscore
       
       real tmpprob,t
@@ -146,6 +148,8 @@ CONTAINS
       	
       	itmpidx=1
       	itmpscore=0
+      	
+      	call logist2018(atemp,ratio(l),aprob) ! v2018
       	call calscore(aprob)
       	
       	write(51,5101) i2(l),j2(l),rlon2(l),rlat2(l),xx2(l),yy2(l) &
@@ -180,6 +184,16 @@ CONTAINS
 
       endsubroutine ! rwproc
 
+!############################################################# ! v2018
+      subroutine logist2018(tmpt,tmpratio,aprobw)
+      !call logist2018(atemp,ratio(l),aprob) ! v2018
+      real*8 tmpt,tmpratio,aprobw
+      
+      calc=b0_2018 + b1_2018*tmpt + b2_2018*tmpratio
+      aprobw=exp(calc)/(1+exp(calc))
+      
+      endsubroutine ! logist2018
+      
 !#############################################################
       subroutine calscore(p)
       
@@ -288,6 +302,11 @@ CONTAINS
         !read(12,*) imod(i),b0(i),b1(i)
         read(12,*) 
       enddo
+      
+      read(12,*)                               ! v2018
+      read(12,*)
+      read(12,*) idum,b0_2018,b1_2018,b2_2018
+      
       read(12,*)
       rlv(1)=0.
       val(1)=0.
@@ -317,6 +336,7 @@ CONTAINS
       
       allocate(rlon2(lm),rlat2(lm),xx2(lm),yy2(lm))
       allocate(i2(lm),j2(lm),ip2(iav,lm),jp2(iav,lm))
+      allocate(ratio(lm)) ! v2018
       
       !allocate(rlon(lm),rlat(lm))
       !allocate(xx(lm),yy(lm),iflag(lm))
@@ -335,7 +355,8 @@ CONTAINS
       read(13,*)
       l=1
   132 read(13,*,end=138) i2(l),j2(l),xx2(l),yy2(l) &
-        ,(ip2(i,l),jp2(i,l),i=1,iav),rlon2(l),rlat2(l)
+        ,(ip2(i,l),jp2(i,l),i=1,iav),rlon2(l),rlat2(l) &
+        ,idum,ratio(l) ! v2018
       l=l+1
       goto 132
   138 continue
