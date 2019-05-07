@@ -74,7 +74,12 @@ CONTAINS
       else ! 해당정점, 대체정점 1, 2가 모두 비정상이면 그냥 해당정점으로 표기
         nw=n
       endif
-
+      
+      if (ividx(nw).le.int(val(2))) idxw(nw)=1 ! 0~10
+      if (ividx(nw).gt.int(val(2)) .and. ividx(nw).le.int(val(3))) idxw(nw)=2 ! 11~40
+      if (ividx(nw).gt.int(val(3)) .and. ividx(nw).le.int(val(4))) idxw(nw)=3 ! 41~85
+      if (ividx(nw).gt.int(val(4))) idxw(nw)=4 ! 86~100
+      
       write(51,5101) cloc(n),rlat(n),rlon(n),idxw(nw),probw(nw) &
       ,tempw(nw),saltw(nw),atemw(nw),utmx(n),utmy(n),ividx(nw) &
       ,trim(chname(n)),iarea(n),iregn(n),n,nw
@@ -210,7 +215,7 @@ CONTAINS
       !write(*,*) n,trim(cread),' ',trim(chname),lmx
       probw(n)=proba(lmx)
       idxw(n)=idexa(lmx)
-      tempw(n)=tempa(ltx)
+      tempw(n)=tempa(lmx)
       saltw(n)=salta(lmx)
       atemw(n)=atema(lmx)
       call prob2ividx(probw(n))
@@ -471,7 +476,7 @@ CONTAINS
       wtm2=(probt-rlv(m1))/tdiff
       vidx=wtm1*val(m1) + wtm2*val(m2)
       if (vidx.lt.0.) vidx=-9.
-      ividx(n)=nint(vidx)
+      ividx(n)=int(vidx)
       !write(*,*) probt,ividx
       return
       endsubroutine ! prob2ividx

@@ -62,13 +62,13 @@ CONTAINS
       !if (b0c.eq.0. .and. b1c.eq.0.) p=0. ! 2018 edit
 !            write(*,*) imod(n),cloc(n),b0c,b1c,p,t
       
-      if (p.ge.0. .and. p.lt.rlv1) then
+      if (p.ge.0. .and. p.le.rlv1) then
      	  indexa=1
-      elseif (p.ge.rlv1 .and. p.lt.rlv2) then
+      elseif (p.gt.rlv1 .and. p.le.rlv2) then
        	indexa=2
-      elseif (p.ge.rlv2 .and. p.lt.rlv3) then
+      elseif (p.gt.rlv2 .and. p.le.rlv3) then
        	indexa=3
-      elseif (p.ge.rlv3 .and. p.lt.1.) then
+      elseif (p.gt.rlv3 .and. p.le.1.) then
        	indexa=4
       else
         indexa=0
