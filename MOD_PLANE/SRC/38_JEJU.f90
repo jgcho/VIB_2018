@@ -77,6 +77,14 @@ CONTAINS
         do j=1,jrmax
         	do i=1,irmax
         		if (iflag(i,j).ge.0) then
+
+        			if (iscore(i,j,k).le.int(val(2))) idxmx(i,j,k)=1 ! 0~10
+              if (iscore(i,j,k).gt.int(val(2)) & 
+              .and. iscore(i,j,k).le.int(val(3))) idxmx(i,j,k)=2 ! 11~40
+              if (iscore(i,j,k).gt.int(val(3)) &
+              .and. iscore(i,j,k).le.int(val(4))) idxmx(i,j,k)=3 ! 41~85
+              if (iscore(i,j,k).gt.int(val(4))) idxmx(i,j,k)=4 ! 86~100
+              
         			write(51,5101) i,j,rlon(i,j),rlat(i,j),xx(i,j),yy(i,j), &
               idxmx(i,j,k),iscore(i,j,k),probmx(i,j,k),tempmx(i,j,k), &
               iflag(i,j)

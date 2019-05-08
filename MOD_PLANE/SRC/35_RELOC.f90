@@ -87,6 +87,15 @@ CONTAINS
       	atemp=0.
       	iflgw=0
       	do l=1,lm
+
+    			if (itmpscore.le.int(val(2))) itmpidx=1 ! 0~10
+          if (itmpscore.gt.int(val(2)) & 
+          .and. itmpscore.le.int(val(3))) itmpidx=2 ! 11~40
+          if (itmpscore.gt.int(val(3)) &
+          .and. itmpscore.le.int(val(4))) itmpidx=3 ! 41~85
+          if (itmpscore.gt.int(val(4))) itmpidx=4 ! 86~100
+
+
       		write(51,5101) i2(l),j2(l),rlon2(l),rlat2(l),xx2(l),yy2(l) &
       	  ,itmpidx,itmpscore,aprob,atemp,iflagw
       	  
@@ -150,7 +159,15 @@ CONTAINS
       	
        	call logist2018(atemp,ratio(l),aprob) ! v2018
       	call calscore(aprob)
-      	
+
+    			if (itmpscore.le.int(val(2))) itmpidx=1 ! 0~10
+          if (itmpscore.gt.int(val(2)) & 
+          .and. itmpscore.le.int(val(3))) itmpidx=2 ! 11~40
+          if (itmpscore.gt.int(val(3)) &
+          .and. itmpscore.le.int(val(4))) itmpidx=3 ! 41~85
+          if (itmpscore.gt.int(val(4))) itmpidx=4 ! 86~100
+
+
       	write(51,5101) i2(l),j2(l),rlon2(l),rlat2(l),xx2(l),yy2(l) &
       	,itmpidx,itmpscore,aprob,atemp,iflag(ip2(1,l),jp2(1,l)),icnt  ! v2018
       	if (itmpidx.gt.1) then
